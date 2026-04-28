@@ -2,7 +2,8 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>DPI CONFIG SYSTEM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DPI .pem Across</title>
 
 <style>
 body{
@@ -11,37 +12,40 @@ padding:0;
 font-family:Arial, sans-serif;
 background:linear-gradient(135deg,#0f0f0f,#1c1c1c);
 color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
 }
 
 .container{
-width:90%;
+width:92%;
 max-width:420px;
-margin:40px auto;
 background:#151515;
 border-radius:20px;
-padding:20px;
+padding:18px;
 box-shadow:0 0 25px rgba(255,0,0,0.3);
 border:1px solid rgba(255,0,0,0.4);
 }
 
 .header{
 text-align:center;
-padding:15px;
+padding:14px;
 background:linear-gradient(90deg,#ff0000,#ff4d4d);
 border-radius:15px;
-font-size:20px;
+font-size:18px;
 font-weight:bold;
 letter-spacing:1px;
 box-shadow:0 0 10px red;
 }
 
 .card{
-margin-top:15px;
+margin-top:12px;
 background:#1f1f1f;
-padding:15px;
-border-radius:15px;
-line-height:1.6;
-font-size:14px;
+padding:12px;
+border-radius:14px;
+line-height:1.5;
+font-size:13px;
 color:#ddd;
 box-shadow:inset 0 0 10px rgba(255,255,255,0.05);
 }
@@ -52,17 +56,19 @@ font-weight:bold;
 }
 
 .warning{
-margin-top:20px;
-padding:15px;
+margin-top:15px;
+padding:12px;
 background:rgba(255,0,0,0.15);
-border-left:5px solid red;
+border-left:4px solid red;
 border-radius:12px;
 box-shadow:0 0 10px rgba(255,0,0,0.2);
+font-size:13px;
 }
 
 .warning h3{
-margin:0 0 10px 0;
+margin:0 0 8px 0;
 color:#ff5252;
+font-size:15px;
 }
 
 .button{
@@ -76,11 +82,10 @@ color:#000;
 font-weight:bold;
 font-size:15px;
 cursor:pointer;
-box-shadow:0 0 10px rgba(0,255,100,0.4);
 }
 
 .button:active{
-transform:scale(0.98);
+transform:scale(0.97);
 }
 </style>
 </head>
@@ -94,41 +99,30 @@ transform:scale(0.98);
 </div>
 
 <div class="card">
-DPI (Dots Per Inch) là chỉ số quan trọng quyết định độ nhạy và khả năng phản hồi của màn hình cảm ứng. 
-Nó ảnh hưởng trực tiếp đến tốc độ di chuyển, độ mượt thao tác và trải nghiệm sử dụng tổng thể trên thiết bị.
+DPI (Dots Per Inch) là chỉ số quan trọng quyết định độ nhạy và khả năng phản hồi của màn hình cảm ứng.
 </div>
 
 <div class="card">
-Khi tăng DPI, thao tác sẽ trở nên <span class="highlight">nhanh hơn và linh hoạt hơn</span>. 
-Khi giảm DPI, thiết bị sẽ ổn định hơn và <span class="highlight">dễ kiểm soát chính xác hơn</span>.
+Khi tăng DPI, thao tác sẽ <span class="highlight">nhanh hơn</span>. Khi giảm DPI sẽ <span class="highlight">ổn định hơn</span>.
 </div>
 
 <div class="card">
-Hệ thống DPI Config giúp tối ưu cảm ứng theo từng thiết bị, cải thiện độ mượt, giảm delay và tăng độ phản hồi 
-khi thao tác nhanh.
+Hệ thống DPI giúp tối ưu cảm ứng, giảm delay và tăng độ mượt khi sử dụng.
 </div>
 
 <div class="card">
 ✔ Tăng tốc độ thao tác  
-✔ Cải thiện độ mượt màn hình  
-✔ Tối ưu phản hồi cảm ứng  
-✔ Giảm độ trễ hệ thống  
+✔ Cải thiện độ mượt  
+✔ Giảm độ trễ  
+✔ Tối ưu cảm ứng  
 </div>
 
 <div class="warning">
 <h3>⚠ LƯU Ý QUAN TRỌNG</h3>
-<p>
-Sau khi áp dụng DPI, hãy <b>khởi động lại thiết bị</b> để hệ thống cập nhật toàn bộ thay đổi.
-</p>
-<p>
-Sau khi reboot, vui lòng <b>đợi khoảng 5 phút</b> để hệ thống ổn định và tối ưu hoàn toàn.
-</p>
-<p>
-Không nên thay đổi DPI liên tục để tránh lỗi hiển thị hoặc xung đột hệ thống.
-</p>
+Sau khi áp dụng DPI, hãy khởi động lại thiết bị và đợi khoảng 5 phút để hệ thống ổn định hoàn toàn.
 </div>
 
-<button class="button" onclick="alert('????')">
+<button class="button" onclick="alert('✔ DPI ACROSS đã kích hoạt (demo)')">
 🫪 DPI ACROSS
 </button>
 
