@@ -1,91 +1,117 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DPI .pem Across</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aim Lock CV</title>
 
 <style>
 body{
-margin:0;
-padding:0;
-font-family:Arial, sans-serif;
-background:linear-gradient(135deg,#0f0f0f,#1c1c1c);
-color:white;
-display:flex;
-justify-content:center;
-align-items:center;
-min-height:100vh;
+    margin:0;
+    padding:0;
+    background:#0f0f0f;
+    font-family:Arial,sans-serif;
+    color:white;
 }
 
 .container{
-width:92%;
-max-width:420px;
-background:#151515;
-border-radius:20px;
-padding:18px;
-box-shadow:0 0 25px rgba(255,0,0,0.3);
-border:1px solid rgba(255,0,0,0.4);
+    width:90%;
+    max-width:420px;
+    margin:30px auto;
+    background:#1b1b1b;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 0 20px #000;
 }
 
 .header{
-text-align:center;
-padding:14px;
-background:linear-gradient(90deg,#ff0000,#ff4d4d);
-border-radius:15px;
-font-size:18px;
-font-weight:bold;
-letter-spacing:1px;
-box-shadow:0 0 10px red;
+    background:#8b0000;
+    padding:18px;
+    text-align:center;
+    font-size:24px;
+    font-weight:bold;
 }
 
-.card{
-margin-top:12px;
-background:#1f1f1f;
-padding:12px;
-border-radius:14px;
-line-height:1.5;
-font-size:13px;
-color:#ddd;
-box-shadow:inset 0 0 10px rgba(255,255,255,0.05);
+.key-box{
+    padding:15px;
+    text-align:center;
 }
 
-.highlight{
-color:#00e676;
-font-weight:bold;
+input{
+    width:85%;
+    padding:12px;
+    border:none;
+    outline:none;
+    border-radius:10px;
+    background:#2c2c2c;
+    color:white;
+    font-size:15px;
 }
 
-.warning{
-margin-top:15px;
-padding:12px;
-background:rgba(255,0,0,0.15);
-border-left:4px solid red;
-border-radius:12px;
-box-shadow:0 0 10px rgba(255,0,0,0.2);
-font-size:13px;
+button{
+    margin-top:12px;
+    padding:10px 20px;
+    border:none;
+    border-radius:10px;
+    background:#00bfff;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-.warning h3{
-margin:0 0 8px 0;
-color:#ff5252;
-font-size:15px;
+button:hover{
+    opacity:0.9;
 }
 
-.button{
-margin-top:15px;
-width:100%;
-padding:12px;
-border:none;
-border-radius:12px;
-background:linear-gradient(90deg,#00c853,#00e676);
-color:#000;
-font-weight:bold;
-font-size:15px;
-cursor:pointer;
+#panel{
+    display:none;
+    padding:15px;
 }
 
-.button:active{
-transform:scale(0.97);
+.info{
+    background:#252525;
+    padding:12px;
+    border-radius:12px;
+    margin-bottom:15px;
+    font-size:14px;
+}
+
+.tabs{
+    display:flex;
+    justify-content:space-between;
+    gap:8px;
+}
+
+.tab-btn{
+    flex:1;
+    background:#222;
+}
+
+.content{
+    margin-top:15px;
+    background:#151515;
+    padding:15px;
+    border-radius:15px;
+    min-height:120px;
+}
+
+.toggle{
+    display:flex;
+    justify-content:space-between;
+    margin-top:12px;
+    background:#242424;
+    padding:12px;
+    border-radius:12px;
+}
+
+.success{
+    color:#00ff7f;
+    margin-top:10px;
+}
+
+.error{
+    color:red;
+    margin-top:10px;
 }
 </style>
 </head>
@@ -94,39 +120,108 @@ transform:scale(0.97);
 
 <div class="container">
 
-<div class="header">
-⚡ DPI ACROSS .pem ⚡
+    <div class="header">
+        AIM LOCK CV
+    </div>
+
+    <div class="key-box" id="loginBox">
+        <input type="password" id="keyInput" placeholder="Nhập Key...">
+        <br>
+        <button onclick="checkKey()">Đăng Nhập</button>
+    </div>
+
+    <div id="panel">
+
+        <div class="info">
+            <b>Thông Tin Thiết Bị</b><br><br>
+            📱 Thiết bị: <span id="device"></span><br>
+            🌐 Trình duyệt: <span id="browser"></span><br>
+            💻 Hệ điều hành: <span id="os"></span>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn" onclick="showTab('menu')">Menu</button>
+            <button class="tab-btn" onclick="showTab('file')">Tài Liệu</button>
+            <button class="tab-btn" onclick="showTab('creator')">Creator</button>
+        </div>
+
+        <div class="content" id="content">
+            Chọn chức năng bên trên
+        </div>
+
+    </div>
+
 </div>
 
-<div class="card">
-DPI (Dots Per Inch) là chỉ số quan trọng quyết định độ nhạy và khả năng phản hồi của màn hình cảm ứng.
-</div>
+<script>
 
-<div class="card">
-Khi tăng DPI, thao tác sẽ <span class="highlight">nhanh hơn</span>. Khi giảm DPI sẽ <span class="highlight">ổn định hơn</span>.
-</div>
+const KEY = "CV-Azewnx-dbs";
 
-<div class="card">
-Hệ thống DPI giúp tối ưu cảm ứng, giảm delay và tăng độ mượt khi sử dụng.
-</div>
+function checkKey(){
+    let input = document.getElementById("keyInput").value;
 
-<div class="card">
-✔ Tăng tốc độ thao tác  
-✔ Cải thiện độ mượt  
-✔ Giảm độ trễ  
-✔ Tối ưu cảm ứng  
-</div>
+    if(input === KEY){
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("panel").style.display = "block";
 
-<div class="warning">
-<h3>⚠ LƯU Ý QUAN TRỌNG</h3>
-Sau khi áp dụng DPI, hãy khởi động lại thiết bị và đợi khoảng 5 phút để hệ thống ổn định hoàn toàn.
-</div>
+        document.getElementById("device").innerText = navigator.platform;
+        document.getElementById("browser").innerText = navigator.appName;
+        document.getElementById("os").innerText = navigator.userAgent;
+    }else{
+        alert("Sai Key!");
+    }
+}
 
-<button class="button" onclick="alert('✔ Bản Quyền TikTok:ACROSS')">
-🫪 DPI ACROSS
-</button>
+function showTab(tab){
 
-</div>
+    let content = document.getElementById("content");
+
+    if(tab === "menu"){
+        content.innerHTML = `
+            <div class="toggle">
+                <span>🎯 Nhẹ tâm CV</span>
+                <span>ON</span>
+            </div>
+
+            <div class="toggle">
+                <span>📉 Giảm rung 20%</span>
+                <span>ON</span>
+            </div>
+        `;
+    }
+
+    else if(tab === "file"){
+        content.innerHTML = `
+            <input type="file" id="fileInput">
+            <div id="fileResult"></div>
+        `;
+
+        document.getElementById("fileInput").addEventListener("change", function(e){
+
+            let file = e.target.files[0];
+
+            if(file){
+                if(file.name === "Cv.lock"){
+                    document.getElementById("fileResult").innerHTML =
+                    "<div class='success'>✔ Nhập file thành công</div>";
+                }else{
+                    document.getElementById("fileResult").innerHTML =
+                    "<div class='error'>✖ Lỗi: Chỉ chấp nhận file Cv.lock</div>";
+                }
+            }
+
+        });
+    }
+
+    else if(tab === "creator"){
+        content.innerHTML = `
+            <h3>👑 Creator</h3>
+            <p>📱 TikTok: @userndd2012</p>
+            <p>🔑 Lấy key free</p>
+        `;
+    }
+}
+</script>
 
 </body>
 </html>
