@@ -7,112 +7,170 @@
 
 <style>
 
-body{
+*{
     margin:0;
     padding:0;
-    background:#0f0f0f;
-    font-family:Arial,sans-serif;
+    box-sizing:border-box;
+    font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
+body{
+    background:linear-gradient(180deg,#050505,#101010);
     color:white;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* IOS GLOW */
+
+.bg1,.bg2{
+    position:fixed;
+    width:250px;
+    height:250px;
+    border-radius:50%;
+    filter:blur(80px);
+    z-index:-1;
+}
+
+.bg1{
+    background:#00bfff;
+    top:-50px;
+    left:-50px;
+}
+
+.bg2{
+    background:#ff004c;
+    bottom:-50px;
+    right:-50px;
 }
 
 .container{
-    width:90%;
+    width:92%;
     max-width:420px;
-    margin:30px auto;
-    background:#1b1b1b;
-    border-radius:20px;
+    margin:25px auto;
+    background:rgba(25,25,25,0.72);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:28px;
     overflow:hidden;
-    box-shadow:0 0 20px #000;
+    box-shadow:
+    0 0 30px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+    animation:fade 0.5s ease;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 
 .header{
-    background:#8b0000;
-    padding:18px;
+    background:linear-gradient(90deg,#ff003c,#ff006a);
+    padding:20px;
     text-align:center;
-    font-size:24px;
-    font-weight:bold;
+    font-size:26px;
+    font-weight:700;
+    letter-spacing:1px;
 }
 
 .key-box{
-    padding:15px;
+    padding:20px;
     text-align:center;
 }
 
 input[type="password"]{
-    width:85%;
-    padding:12px;
+    width:100%;
+    padding:15px;
     border:none;
     outline:none;
-    border-radius:10px;
-    background:#2c2c2c;
+    border-radius:16px;
+    background:rgba(255,255,255,0.08);
     color:white;
-    font-size:15px;
+    font-size:16px;
+    backdrop-filter:blur(10px);
 }
 
 button{
-    margin-top:12px;
-    padding:10px 20px;
     border:none;
-    border-radius:10px;
-    background:#00bfff;
+    border-radius:16px;
+    padding:14px 20px;
+    background:linear-gradient(90deg,#00bfff,#008cff);
     color:white;
     font-weight:bold;
+    margin-top:14px;
     cursor:pointer;
+    transition:0.25s;
 }
 
-button:hover{
-    opacity:0.9;
+button:active{
+    transform:scale(0.95);
 }
 
 #panel{
     display:none;
-    padding:15px;
+    padding:18px;
 }
 
 .info{
-    background:#252525;
-    padding:12px;
-    border-radius:12px;
-    margin-bottom:15px;
+    background:rgba(255,255,255,0.05);
+    border-radius:20px;
+    padding:15px;
+    margin-bottom:16px;
     font-size:14px;
+    line-height:1.7;
+    backdrop-filter:blur(10px);
 }
 
 .tabs{
     display:flex;
-    justify-content:space-between;
     gap:8px;
 }
 
 .tab-btn{
     flex:1;
-    background:#222;
+    background:rgba(255,255,255,0.06);
+    color:white;
+    padding:12px;
+    border-radius:15px;
+    font-size:14px;
+}
+
+.tab-btn.active{
+    background:linear-gradient(90deg,#00bfff,#007bff);
 }
 
 .content{
     margin-top:15px;
-    background:#151515;
-    padding:15px;
-    border-radius:15px;
-    min-height:150px;
+    background:rgba(255,255,255,0.04);
+    border-radius:20px;
+    padding:16px;
+    min-height:180px;
+    animation:fade 0.3s ease;
 }
 
 .toggle{
     display:flex;
     justify-content:space-between;
     align-items:center;
+    background:rgba(255,255,255,0.05);
+    padding:15px;
+    border-radius:18px;
     margin-top:12px;
-    background:#242424;
-    padding:12px;
-    border-radius:12px;
 }
 
-/* SWITCH */
+/* IOS SWITCH */
 
 .switch{
     position:relative;
     display:inline-block;
-    width:50px;
-    height:26px;
+    width:54px;
+    height:30px;
 }
 
 .switch input{
@@ -123,30 +181,27 @@ button:hover{
 
 .slider{
     position:absolute;
-    cursor:pointer;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
+    inset:0;
     background:#555;
+    border-radius:50px;
     transition:.4s;
-    border-radius:34px;
 }
 
 .slider:before{
-    position:absolute;
     content:"";
-    height:20px;
-    width:20px;
+    position:absolute;
+    height:24px;
+    width:24px;
     left:3px;
-    bottom:3px;
+    top:3px;
     background:white;
-    transition:.4s;
     border-radius:50%;
+    transition:.4s;
 }
 
 input:checked + .slider{
-    background:#00cc66;
+    background:#00d26a;
+    box-shadow:0 0 15px #00ff95;
 }
 
 input:checked + .slider:before{
@@ -154,13 +209,28 @@ input:checked + .slider:before{
 }
 
 .success{
-    color:#00ff7f;
+    color:#00ff95;
     margin-top:10px;
+    font-weight:bold;
 }
 
 .error{
-    color:red;
+    color:#ff3b3b;
     margin-top:10px;
+    font-weight:bold;
+}
+
+.creator-box{
+    text-align:center;
+    padding-top:20px;
+}
+
+.creator-box h2{
+    margin-bottom:12px;
+}
+
+.creator-btn{
+    width:100%;
 }
 
 </style>
@@ -168,20 +238,30 @@ input:checked + .slider:before{
 
 <body>
 
+<div class="bg1"></div>
+<div class="bg2"></div>
+
 <div class="container">
 
     <div class="header">
         AIM LOCK CV
     </div>
 
+    <!-- LOGIN -->
+
     <div class="key-box" id="loginBox">
 
-        <input type="password" id="keyInput" placeholder="Nhập Key...">
-        <br>
+        <input type="password"
+        id="keyInput"
+        placeholder="Nhập Key...">
 
-        <button onclick="checkKey()">Đăng Nhập</button>
+        <button onclick="checkKey()">
+            Đăng Nhập
+        </button>
 
     </div>
+
+    <!-- PANEL -->
 
     <div id="panel">
 
@@ -190,10 +270,10 @@ input:checked + .slider:before{
             <b>📱 Thông Tin Thiết Bị</b><br><br>
 
             📱 Thiết bị:
-            <span id="device"></span><br><br>
+            <span id="device"></span><br>
 
             🌐 Trình duyệt:
-            <span id="browser"></span><br><br>
+            <span id="browser"></span><br>
 
             💻 Hệ điều hành:
             <span id="os"></span>
@@ -202,26 +282,24 @@ input:checked + .slider:before{
 
         <div class="tabs">
 
-            <button class="tab-btn"
-            onclick="showTab('menu')">
+            <button class="tab-btn active"
+            onclick="showTab('menu',this)">
             Menu
             </button>
 
             <button class="tab-btn"
-            onclick="showTab('file')">
+            onclick="showTab('file',this)">
             Tài Liệu
             </button>
 
             <button class="tab-btn"
-            onclick="showTab('creator')">
+            onclick="showTab('creator',this)">
             Creator
             </button>
 
         </div>
 
-        <div class="content" id="content">
-            ????????
-        </div>
+        <div class="content" id="content"></div>
 
     </div>
 
@@ -230,6 +308,11 @@ input:checked + .slider:before{
 <script>
 
 const KEY = "CV-Azewnx-dbs";
+
+/* LƯU TRẠNG THÁI */
+
+let aimEnabled = false;
+let shakeEnabled = false;
 
 /* LOGIN */
 
@@ -255,6 +338,9 @@ function checkKey(){
         document.getElementById("os")
         .innerText = navigator.userAgent;
 
+        showTab("menu",
+        document.querySelector(".tab-btn"));
+
     }else{
 
         alert("❌ Sai Key!");
@@ -264,7 +350,12 @@ function checkKey(){
 
 /* TAB */
 
-function showTab(tab){
+function showTab(tab,btn){
+
+    document.querySelectorAll(".tab-btn")
+    .forEach(x=>x.classList.remove("active"));
+
+    btn.classList.add("active");
 
     let content =
     document.getElementById("content");
@@ -280,17 +371,20 @@ function showTab(tab){
             <span>🎯 Nhẹ tâm CV</span>
 
             <label class="switch">
+
                 <input type="checkbox"
-                id="aimlock">
+                id="aimlock"
+                ${aimEnabled ? "checked" : ""}>
+
                 <span class="slider"></span>
+
             </label>
 
         </div>
 
         <div id="aimText"
-        style="margin-top:8px;
-        color:#00ff7f;
-        display:none;">
+        class="success"
+        style="display:${aimEnabled ? "block":"none"}">
 
         ✔ Nhẹ tâm CV đã bật
 
@@ -301,17 +395,20 @@ function showTab(tab){
             <span>📉 Giảm rung 20%</span>
 
             <label class="switch">
+
                 <input type="checkbox"
-                id="shake">
+                id="shake"
+                ${shakeEnabled ? "checked" : ""}>
+
                 <span class="slider"></span>
+
             </label>
 
         </div>
 
         <div id="shakeText"
-        style="margin-top:8px;
-        color:#00ff7f;
-        display:none;">
+        class="success"
+        style="display:${shakeEnabled ? "block":"none"}">
 
         ✔ Giảm rung đã bật
 
@@ -319,27 +416,28 @@ function showTab(tab){
 
         `;
 
-        setTimeout(() => {
+        document.getElementById("aimlock")
+        .addEventListener("change",function(){
 
-            document.getElementById("aimlock")
-            .addEventListener("change", function(){
+            aimEnabled = this.checked;
 
-                document.getElementById("aimText")
-                .style.display =
-                this.checked ? "block" : "none";
+            document.getElementById("aimText")
+            .style.display =
+            this.checked ? "block":"none";
 
-            });
+        });
 
-            document.getElementById("shake")
-            .addEventListener("change", function(){
+        document.getElementById("shake")
+        .addEventListener("change",function(){
 
-                document.getElementById("shakeText")
-                .style.display =
-                this.checked ? "block" : "none";
+            shakeEnabled = this.checked;
 
-            });
+            document.getElementById("shakeText")
+            .style.display =
+            this.checked ? "block":"none";
 
-        },100);
+        });
+
     }
 
     /* FILE */
@@ -355,36 +453,33 @@ function showTab(tab){
 
         `;
 
-        setTimeout(() => {
+        document.getElementById("fileInput")
+        .addEventListener("change",function(e){
 
-            document.getElementById("fileInput")
-            .addEventListener("change", function(e){
+            let file =
+            e.target.files[0];
 
-                let file =
-                e.target.files[0];
+            if(file){
 
-                if(file){
+                if(file.name === "Cv.lock"){
 
-                    if(file.name === "Cv.lock"){
+                    document.getElementById("fileResult")
+                    .innerHTML =
 
-                        document.getElementById("fileResult")
-                        .innerHTML =
+                    "<div class='success'>✔ Nhập file thành công</div>";
 
-                        "<div class='success'>✔ Nhập file thành công</div>";
+                }else{
 
-                    }else{
+                    document.getElementById("fileResult")
+                    .innerHTML =
 
-                        document.getElementById("fileResult")
-                        .innerHTML =
+                    "<div class='error'>✖ Chỉ chấp thuận khi nhập đúng file</div>";
 
-                        "<div class='error'>✖ Lỗi: Chỉ chấp nhận khi nhập đúng file</div>";
-
-                    }
                 }
+            }
 
-            });
+        });
 
-        },100);
     }
 
     /* CREATOR */
@@ -393,11 +488,19 @@ function showTab(tab){
 
         content.innerHTML = `
 
-        <h3>👑 Creator</h3>
+        <div class="creator-box">
 
-        <p>📱 TikTok: @userndd2012</p>
+            <h2>👑 Creator</h2>
 
-        <p>🔑 Lấy key free:@userndd2012</p>
+            <p style="margin-bottom:15px">
+            TikTok: @userndd2012
+            </p>
+
+            <button class="creator-btn">
+            🔑 Lấy Key Free @userndd2012
+            </button>
+
+        </div>
 
         `;
     }
