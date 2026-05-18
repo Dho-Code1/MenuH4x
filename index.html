@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aim Lock CV</title>
 
 <style>
+
 body{
     margin:0;
     padding:0;
@@ -37,7 +38,7 @@ body{
     text-align:center;
 }
 
-input{
+input[type="password"]{
     width:85%;
     padding:12px;
     border:none;
@@ -92,16 +93,64 @@ button:hover{
     background:#151515;
     padding:15px;
     border-radius:15px;
-    min-height:120px;
+    min-height:150px;
 }
 
 .toggle{
     display:flex;
     justify-content:space-between;
+    align-items:center;
     margin-top:12px;
     background:#242424;
     padding:12px;
     border-radius:12px;
+}
+
+/* SWITCH */
+
+.switch{
+    position:relative;
+    display:inline-block;
+    width:50px;
+    height:26px;
+}
+
+.switch input{
+    opacity:0;
+    width:0;
+    height:0;
+}
+
+.slider{
+    position:absolute;
+    cursor:pointer;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background:#555;
+    transition:.4s;
+    border-radius:34px;
+}
+
+.slider:before{
+    position:absolute;
+    content:"";
+    height:20px;
+    width:20px;
+    left:3px;
+    bottom:3px;
+    background:white;
+    transition:.4s;
+    border-radius:50%;
+}
+
+input:checked + .slider{
+    background:#00cc66;
+}
+
+input:checked + .slider:before{
+    transform:translateX(24px);
 }
 
 .success{
@@ -113,6 +162,7 @@ button:hover{
     color:red;
     margin-top:10px;
 }
+
 </style>
 </head>
 
@@ -125,28 +175,52 @@ button:hover{
     </div>
 
     <div class="key-box" id="loginBox">
+
         <input type="password" id="keyInput" placeholder="Nhập Key...">
         <br>
+
         <button onclick="checkKey()">Đăng Nhập</button>
+
     </div>
 
     <div id="panel">
 
         <div class="info">
-            <b>Thông Tin Thiết Bị</b><br><br>
-            📱 Thiết bị: <span id="device"></span><br>
-            🌐 Trình duyệt: <span id="browser"></span><br>
-            💻 Hệ điều hành: <span id="os"></span>
+
+            <b>📱 Thông Tin Thiết Bị</b><br><br>
+
+            📱 Thiết bị:
+            <span id="device"></span><br><br>
+
+            🌐 Trình duyệt:
+            <span id="browser"></span><br><br>
+
+            💻 Hệ điều hành:
+            <span id="os"></span>
+
         </div>
 
         <div class="tabs">
-            <button class="tab-btn" onclick="showTab('menu')">Menu</button>
-            <button class="tab-btn" onclick="showTab('file')">Tài Liệu</button>
-            <button class="tab-btn" onclick="showTab('creator')">Creator</button>
+
+            <button class="tab-btn"
+            onclick="showTab('menu')">
+            Menu
+            </button>
+
+            <button class="tab-btn"
+            onclick="showTab('file')">
+            Tài Liệu
+            </button>
+
+            <button class="tab-btn"
+            onclick="showTab('creator')">
+            Creator
+            </button>
+
         </div>
 
         <div class="content" id="content">
-            Chọn chức năng bên trên
+            ????????
         </div>
 
     </div>
@@ -157,70 +231,178 @@ button:hover{
 
 const KEY = "CV-Azewnx-dbs";
 
+/* LOGIN */
+
 function checkKey(){
-    let input = document.getElementById("keyInput").value;
+
+    let input =
+    document.getElementById("keyInput").value;
 
     if(input === KEY){
-        document.getElementById("loginBox").style.display = "none";
-        document.getElementById("panel").style.display = "block";
 
-        document.getElementById("device").innerText = navigator.platform;
-        document.getElementById("browser").innerText = navigator.appName;
-        document.getElementById("os").innerText = navigator.userAgent;
+        document.getElementById("loginBox")
+        .style.display = "none";
+
+        document.getElementById("panel")
+        .style.display = "block";
+
+        document.getElementById("device")
+        .innerText = navigator.platform;
+
+        document.getElementById("browser")
+        .innerText = navigator.appName;
+
+        document.getElementById("os")
+        .innerText = navigator.userAgent;
+
     }else{
-        alert("Sai Key!");
+
+        alert("❌ Sai Key!");
+
     }
 }
+
+/* TAB */
 
 function showTab(tab){
 
-    let content = document.getElementById("content");
+    let content =
+    document.getElementById("content");
+
+    /* MENU */
 
     if(tab === "menu"){
-        content.innerHTML = `
-            <div class="toggle">
-                <span>🎯 Nhẹ tâm CV</span>
-                <span>ON</span>
-            </div>
 
-            <div class="toggle">
-                <span>📉 Giảm rung 20%</span>
-                <span>ON</span>
-            </div>
+        content.innerHTML = `
+
+        <div class="toggle">
+
+            <span>🎯 Nhẹ tâm CV</span>
+
+            <label class="switch">
+                <input type="checkbox"
+                id="aimlock">
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+        <div id="aimText"
+        style="margin-top:8px;
+        color:#00ff7f;
+        display:none;">
+
+        ✔ Nhẹ tâm CV đã bật
+
+        </div>
+
+        <div class="toggle">
+
+            <span>📉 Giảm rung 20%</span>
+
+            <label class="switch">
+                <input type="checkbox"
+                id="shake">
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+        <div id="shakeText"
+        style="margin-top:8px;
+        color:#00ff7f;
+        display:none;">
+
+        ✔ Giảm rung đã bật
+
+        </div>
+
         `;
+
+        setTimeout(() => {
+
+            document.getElementById("aimlock")
+            .addEventListener("change", function(){
+
+                document.getElementById("aimText")
+                .style.display =
+                this.checked ? "block" : "none";
+
+            });
+
+            document.getElementById("shake")
+            .addEventListener("change", function(){
+
+                document.getElementById("shakeText")
+                .style.display =
+                this.checked ? "block" : "none";
+
+            });
+
+        },100);
     }
+
+    /* FILE */
 
     else if(tab === "file"){
+
         content.innerHTML = `
-            <input type="file" id="fileInput">
-            <div id="fileResult"></div>
+
+        <input type="file"
+        id="fileInput">
+
+        <div id="fileResult"></div>
+
         `;
 
-        document.getElementById("fileInput").addEventListener("change", function(e){
+        setTimeout(() => {
 
-            let file = e.target.files[0];
+            document.getElementById("fileInput")
+            .addEventListener("change", function(e){
 
-            if(file){
-                if(file.name === "Cv.lock"){
-                    document.getElementById("fileResult").innerHTML =
-                    "<div class='success'>✔ Nhập file thành công</div>";
-                }else{
-                    document.getElementById("fileResult").innerHTML =
-                    "<div class='error'>✖ Lỗi: Chỉ chấp nhận file Cv.lock</div>";
+                let file =
+                e.target.files[0];
+
+                if(file){
+
+                    if(file.name === "Cv.lock"){
+
+                        document.getElementById("fileResult")
+                        .innerHTML =
+
+                        "<div class='success'>✔ Nhập file thành công</div>";
+
+                    }else{
+
+                        document.getElementById("fileResult")
+                        .innerHTML =
+
+                        "<div class='error'>✖ Lỗi: Chỉ chấp nhận khi nhập đúng file</div>";
+
+                    }
                 }
-            }
 
-        });
+            });
+
+        },100);
     }
 
+    /* CREATOR */
+
     else if(tab === "creator"){
+
         content.innerHTML = `
-            <h3>👑 Creator</h3>
-            <p>📱 TikTok: @userndd2012</p>
-            <p>🔑 Lấy key free</p>
+
+        <h3>👑 Creator</h3>
+
+        <p>📱 TikTok: @userndd2012</p>
+
+        <p>🔑 Lấy key free:@userndd2012</p>
+
         `;
     }
 }
+
 </script>
 
 </body>
