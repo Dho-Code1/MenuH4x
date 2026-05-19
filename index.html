@@ -12,71 +12,84 @@
     padding:0;
     box-sizing:border-box;
     font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+    -webkit-tap-highlight-color:transparent;
 }
 
 body{
-    background:linear-gradient(180deg,#050505,#101010);
+    background:#0a0a0a;
     color:white;
     min-height:100vh;
-    overflow-x:hidden;
+    overflow:hidden;
 }
 
-/* IOS GLOW */
+/* LOADING */
 
-.bg1,.bg2{
+#loadingScreen{
     position:fixed;
-    width:250px;
-    height:250px;
-    border-radius:50%;
-    filter:blur(80px);
-    z-index:-1;
+    inset:0;
+    background:#050505;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:9999;
 }
 
-.bg1{
-    background:#00bfff;
-    top:-50px;
-    left:-50px;
+.loader-logo{
+    width:120px;
+    margin-bottom:25px;
+    border-radius:20px;
 }
 
-.bg2{
-    background:#ff004c;
-    bottom:-50px;
-    right:-50px;
+.loading-bar{
+    width:260px;
+    height:12px;
+    background:#1c1c1c;
+    border-radius:20px;
+    overflow:hidden;
 }
+
+.loading-fill{
+    width:0%;
+    height:100%;
+    background:linear-gradient(90deg,#ff004c,#00bfff);
+    border-radius:20px;
+    transition:0.2s;
+}
+
+.loading-text{
+    margin-top:12px;
+    font-size:15px;
+    color:#ccc;
+}
+
+/* MAIN */
 
 .container{
     width:92%;
     max-width:420px;
     margin:25px auto;
-    background:rgba(25,25,25,0.72);
-    backdrop-filter:blur(18px);
-    border:1px solid rgba(255,255,255,0.08);
+    background:#131313;
     border-radius:28px;
     overflow:hidden;
-    box-shadow:
-    0 0 30px rgba(0,0,0,0.6),
-    inset 0 1px 0 rgba(255,255,255,0.05);
-    animation:fade 0.5s ease;
-}
-
-@keyframes fade{
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+    border:1px solid #252525;
+    display:none;
 }
 
 .header{
     background:linear-gradient(90deg,#ff003c,#ff006a);
-    padding:20px;
+    padding:18px;
     text-align:center;
-    font-size:26px;
-    font-weight:700;
-    letter-spacing:1px;
+}
+
+.header img{
+    width:110px;
+    border-radius:20px;
+    margin-bottom:10px;
+}
+
+.header h1{
+    font-size:24px;
 }
 
 .key-box{
@@ -90,17 +103,18 @@ input[type="password"]{
     border:none;
     outline:none;
     border-radius:16px;
-    background:rgba(255,255,255,0.08);
+    background:#1f1f1f;
     color:white;
     font-size:16px;
-    backdrop-filter:blur(10px);
 }
 
 button{
+    position:relative;
+    overflow:hidden;
     border:none;
     border-radius:16px;
     padding:14px 20px;
-    background:linear-gradient(90deg,#00bfff,#008cff);
+    background:linear-gradient(90deg,#00bfff,#007bff);
     color:white;
     font-weight:bold;
     margin-top:14px;
@@ -109,22 +123,27 @@ button{
 }
 
 button:active{
-    transform:scale(0.95);
+    transform:scale(0.96);
+}
+
+.ripple{
+    position:absolute;
+    border-radius:50%;
+    transform:scale(0);
+    animation:ripple 0.6s linear;
+    background:rgba(255,255,255,0.5);
+}
+
+@keyframes ripple{
+    to{
+        transform:scale(4);
+        opacity:0;
+    }
 }
 
 #panel{
     display:none;
     padding:18px;
-}
-
-.info{
-    background:rgba(255,255,255,0.05);
-    border-radius:20px;
-    padding:15px;
-    margin-bottom:16px;
-    font-size:14px;
-    line-height:1.7;
-    backdrop-filter:blur(10px);
 }
 
 .tabs{
@@ -134,7 +153,7 @@ button:active{
 
 .tab-btn{
     flex:1;
-    background:rgba(255,255,255,0.06);
+    background:#1e1e1e;
     color:white;
     padding:12px;
     border-radius:15px;
@@ -147,24 +166,23 @@ button:active{
 
 .content{
     margin-top:15px;
-    background:rgba(255,255,255,0.04);
+    background:#181818;
     border-radius:20px;
     padding:16px;
     min-height:180px;
-    animation:fade 0.3s ease;
 }
 
 .toggle{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    background:rgba(255,255,255,0.05);
+    background:#202020;
     padding:15px;
     border-radius:18px;
     margin-top:12px;
 }
 
-/* IOS SWITCH */
+/* SWITCH */
 
 .switch{
     position:relative;
@@ -225,10 +243,6 @@ input:checked + .slider:before{
     padding-top:20px;
 }
 
-.creator-box h2{
-    margin-bottom:12px;
-}
-
 .creator-btn{
     width:100%;
 }
@@ -244,13 +258,33 @@ input[type="file"]{
 
 <body>
 
-<div class="bg1"></div>
-<div class="bg2"></div>
+<!-- LOADING -->
 
-<div class="container">
+<div id="loadingScreen">
+
+    <img src="/mnt/data/6370028C-FE96-49D9-9AD4-0FC4982BAFE7.jpeg"
+    class="loader-logo">
+
+    <div class="loading-bar">
+        <div class="loading-fill" id="loadingFill"></div>
+    </div>
+
+    <div class="loading-text" id="loadingText">
+        Loading 0%
+    </div>
+
+</div>
+
+<!-- MENU -->
+
+<div class="container" id="mainContainer">
 
     <div class="header">
-        AIM LOCK CV
+
+        <img src="/mnt/data/6370028C-FE96-49D9-9AD4-0FC4982BAFE7.jpeg">
+
+        <h1>AIM LOCK CV</h1>
+
     </div>
 
     <!-- LOGIN -->
@@ -270,21 +304,6 @@ input[type="file"]{
     <!-- PANEL -->
 
     <div id="panel">
-
-        <div class="info">
-
-            <b>📱 Thông Tin Thiết Bị</b><br><br>
-
-            📱 Thiết bị:
-            <span id="device"></span><br>
-
-            🌐 Trình duyệt:
-            <span id="browser"></span><br>
-
-            💻 Hệ điều hành:
-            <span id="os"></span>
-
-        </div>
 
         <div class="tabs">
 
@@ -313,9 +332,63 @@ input[type="file"]{
 
 <script>
 
-const KEY = "CV-Azewnx-dbs";
+/* LOADING */
 
-/* LƯU TRẠNG THÁI */
+let percent = 0;
+
+let interval = setInterval(()=>{
+
+    percent++;
+
+    document.getElementById("loadingFill")
+    .style.width = percent + "%";
+
+    document.getElementById("loadingText")
+    .innerText = "Loading " + percent + "%";
+
+    if(percent >= 100){
+
+        clearInterval(interval);
+
+        document.getElementById("loadingScreen")
+        .style.display = "none";
+
+        document.getElementById("mainContainer")
+        .style.display = "block";
+    }
+
+},25);
+
+/* RIPPLE EFFECT */
+
+document.addEventListener("click",function(e){
+
+    if(e.target.tagName === "BUTTON"){
+
+        const circle =
+        document.createElement("span");
+
+        circle.classList.add("ripple");
+
+        const rect =
+        e.target.getBoundingClientRect();
+
+        circle.style.left =
+        e.clientX - rect.left + "px";
+
+        circle.style.top =
+        e.clientY - rect.top + "px";
+
+        e.target.appendChild(circle);
+
+        setTimeout(()=>{
+            circle.remove();
+        },600);
+    }
+
+});
+
+const KEY = "CV-Azewnx-dbs";
 
 let aimEnabled = false;
 let shakeEnabled = false;
@@ -334,15 +407,6 @@ function checkKey(){
 
         document.getElementById("panel")
         .style.display = "block";
-
-        document.getElementById("device")
-        .innerText = navigator.platform;
-
-        document.getElementById("browser")
-        .innerText = navigator.appName;
-
-        document.getElementById("os")
-        .innerText = navigator.userAgent;
 
         showTab("menu",
         document.querySelector(".tab-btn"));
