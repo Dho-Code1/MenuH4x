@@ -43,12 +43,8 @@ body{
 }
 
 @keyframes spin{
-    from{
-        transform:rotate(0deg);
-    }
-    to{
-        transform:rotate(360deg);
-    }
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
 }
 
 .loading-bar{
@@ -93,14 +89,8 @@ body{
 }
 
 @keyframes showMenu{
-    from{
-        transform:scale(0.9);
-        opacity:0;
-    }
-    to{
-        transform:scale(1);
-        opacity:1;
-    }
+    from{transform:scale(0.9);opacity:0;}
+    to{transform:scale(1);opacity:1;}
 }
 
 /* HEADER */
@@ -166,9 +156,7 @@ button{
     transition:0.25s;
 }
 
-button:active{
-    transform:scale(0.95);
-}
+button:active{transform:scale(0.95);}
 
 /* RIPPLE */
 
@@ -181,10 +169,7 @@ button:active{
 }
 
 @keyframes ripple{
-    to{
-        transform:scale(4);
-        opacity:0;
-    }
+    to{transform:scale(4);opacity:0;}
 }
 
 /* PANEL */
@@ -222,14 +207,8 @@ button:active{
 }
 
 @keyframes fade{
-    from{
-        opacity:0;
-        transform:translateY(10px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+    from{opacity:0;transform:translateY(10px);}
+    to{opacity:1;transform:translateY(0);}
 }
 
 .toggle{
@@ -240,23 +219,17 @@ button:active{
     padding:16px;
     border-radius:18px;
     margin-top:14px;
-    box-shadow:0 0 10px rgba(255,255,255,0.03);
 }
 
 /* SWITCH */
 
 .switch{
     position:relative;
-    display:inline-block;
     width:56px;
     height:30px;
 }
 
-.switch input{
-    opacity:0;
-    width:0;
-    height:0;
-}
+.switch input{opacity:0;}
 
 .slider{
     position:absolute;
@@ -287,31 +260,29 @@ input:checked + .slider:before{
     transform:translateX(26px);
 }
 
-.success{
-    color:#00ff95;
-    margin-top:10px;
-    font-weight:bold;
+.success{color:#00ff95;margin-top:10px;font-weight:bold;}
+.error{color:#ff3b3b;margin-top:10px;font-weight:bold;}
+
+.creator-box{text-align:center;padding-top:20px;}
+.creator-btn{width:100%;}
+
+input[type="file"]{width:100%;margin-top:10px;color:white;}
+
+/* ====== ICON BAY QUANH MÀN HÌNH (THÊM MỚI) ====== */
+
+.floating-icon{
+    position:fixed;
+    font-size:28px;
+    z-index:9998;
+    pointer-events:none;
+    animation:floatMove linear infinite;
+    filter: drop-shadow(0 0 8px rgba(255,255,255,0.3));
 }
 
-.error{
-    color:#ff3b3b;
-    margin-top:10px;
-    font-weight:bold;
-}
-
-.creator-box{
-    text-align:center;
-    padding-top:20px;
-}
-
-.creator-btn{
-    width:100%;
-}
-
-input[type="file"]{
-    width:100%;
-    margin-top:10px;
-    color:white;
+@keyframes floatMove{
+    0%{transform:translate(0,0) rotate(0deg);}
+    50%{transform:translate(25px,-35px) rotate(180deg);}
+    100%{transform:translate(0,0) rotate(360deg);}
 }
 
 </style>
@@ -319,10 +290,24 @@ input[type="file"]{
 
 <body>
 
+<!-- ICON BAY (THÊM MỚI) -->
+<script>
+const icons = ["🚀","💵","🧸","⚙️"];
+for(let i=0;i<18;i++){
+    let el = document.createElement("div");
+    el.className = "floating-icon";
+    el.innerText = icons[Math.floor(Math.random()*icons.length)];
+
+    el.style.left = Math.random()*100 + "vw";
+    el.style.top = Math.random()*100 + "vh";
+    el.style.animationDuration = (3 + Math.random()*5) + "s";
+
+    document.body.appendChild(el);
+}
+</script>
+
 <!-- LOADING -->
-
 <div id="loadingScreen">
-
     <img src="/mnt/data/6370028C-FE96-49D9-9AD4-0FC4982BAFE7.jpeg"
     class="loader-logo">
 
@@ -330,67 +315,31 @@ input[type="file"]{
         <div class="loading-fill" id="loadingFill"></div>
     </div>
 
-    <div class="loading-text" id="loadingText">
-        Loading 0%
-    </div>
-
+    <div class="loading-text" id="loadingText">Loading 0%</div>
 </div>
 
 <!-- MENU -->
-
 <div class="container" id="mainContainer">
 
     <div class="header">
-
-        <div class="header-icons">
-            ⚙️ 💵
-        </div>
-
+        <div class="header-icons">⚙️ 💵</div>
         <img src="/mnt/data/6370028C-FE96-49D9-9AD4-0FC4982BAFE7.jpeg">
-
         <h1>AIM LOCK CV</h1>
-
     </div>
-
-    <!-- LOGIN -->
 
     <div class="key-box" id="loginBox">
-
-        <input type="password"
-        id="keyInput"
-        placeholder="Nhập Key...">
-
-        <button onclick="checkKey()">
-            Đăng Nhập
-        </button>
-
+        <input type="password" id="keyInput" placeholder="Nhập Key...">
+        <button onclick="checkKey()">Đăng Nhập</button>
     </div>
 
-    <!-- PANEL -->
-
     <div id="panel">
-
         <div class="tabs">
-
-            <button class="tab-btn active"
-            onclick="showTab('menu',this)">
-            Menu
-            </button>
-
-            <button class="tab-btn"
-            onclick="showTab('file',this)">
-            Tài Liệu
-            </button>
-
-            <button class="tab-btn"
-            onclick="showTab('creator',this)">
-            Creator
-            </button>
-
+            <button class="tab-btn active" onclick="showTab('menu',this)">Menu</button>
+            <button class="tab-btn" onclick="showTab('file',this)">Tài Liệu</button>
+            <button class="tab-btn" onclick="showTab('creator',this)">Creator</button>
         </div>
 
         <div class="content" id="content"></div>
-
     </div>
 
 </div>
@@ -398,247 +347,86 @@ input[type="file"]{
 <script>
 
 /* LOADING */
-
-let percent = 0;
-
-let interval = setInterval(()=>{
-
+let percent=0;
+let interval=setInterval(()=>{
     percent++;
-
-    document.getElementById("loadingFill")
-    .style.width = percent + "%";
-
-    document.getElementById("loadingText")
-    .innerText = "Loading " + percent + "%";
-
-    if(percent >= 100){
-
+    document.getElementById("loadingFill").style.width=percent+"%";
+    document.getElementById("loadingText").innerText="Loading "+percent+"%";
+    if(percent>=100){
         clearInterval(interval);
-
         setTimeout(()=>{
-
-            document.getElementById("loadingScreen")
-            .style.display = "none";
-
-            document.getElementById("mainContainer")
-            .style.display = "block";
-
+            document.getElementById("loadingScreen").style.display="none";
+            document.getElementById("mainContainer").style.display="block";
         },500);
     }
-
 },30);
 
 /* RIPPLE */
-
 document.addEventListener("click",function(e){
-
-    if(e.target.tagName === "BUTTON"){
-
-        const circle =
-        document.createElement("span");
-
+    if(e.target.tagName==="BUTTON"){
+        const circle=document.createElement("span");
         circle.classList.add("ripple");
-
-        const rect =
-        e.target.getBoundingClientRect();
-
-        circle.style.left =
-        e.clientX - rect.left + "px";
-
-        circle.style.top =
-        e.clientY - rect.top + "px";
-
+        const rect=e.target.getBoundingClientRect();
+        circle.style.left=e.clientX-rect.left+"px";
+        circle.style.top=e.clientY-rect.top+"px";
         e.target.appendChild(circle);
-
-        setTimeout(()=>{
-            circle.remove();
-        },600);
+        setTimeout(()=>circle.remove(),600);
     }
-
 });
 
-const KEY = "CV-Azewnx-dbs";
-
-let superEnabled = false;
-let aimlockEnabled = false;
-let fixloEnabled = false;
-
-/* LOGIN */
+const KEY="CV-Azewnx-dbs";
+let superEnabled=false;
+let aimlockEnabled=false;
+let fixloEnabled=false;
 
 function checkKey(){
-
-    let input =
-    document.getElementById("keyInput").value;
-
-    if(input === KEY){
-
-        document.getElementById("loginBox")
-        .style.display = "none";
-
-        document.getElementById("panel")
-        .style.display = "block";
-
-        showTab("menu",
-        document.querySelector(".tab-btn"));
-
-    }else{
-
-        alert("❌ Sai Key!");
-
-    }
+    let input=document.getElementById("keyInput").value;
+    if(input===KEY){
+        document.getElementById("loginBox").style.display="none";
+        document.getElementById("panel").style.display="block";
+        showTab("menu",document.querySelector(".tab-btn"));
+    }else alert("❌ Sai Key!");
 }
 
-/* TAB */
-
 function showTab(tab,btn){
-
-    document.querySelectorAll(".tab-btn")
-    .forEach(x=>x.classList.remove("active"));
-
+    document.querySelectorAll(".tab-btn").forEach(x=>x.classList.remove("active"));
     btn.classList.add("active");
+    let content=document.getElementById("content");
 
-    let content =
-    document.getElementById("content");
+    if(tab==="menu"){
+        content.innerHTML=`
+        <div class="toggle"><span>⚡ Super Nhạy</span>
+        <label class="switch"><input type="checkbox" id="super" ${superEnabled?"checked":""}><span class="slider"></span></label></div>
 
-    /* MENU */
+        <div class="toggle"><span>🎯 AIM LOCK</span>
+        <label class="switch"><input type="checkbox" id="aimlock" ${aimlockEnabled?"checked":""}><span class="slider"></span></label></div>
 
-    if(tab === "menu"){
-
-        content.innerHTML = `
-
-        <div class="toggle">
-
-            <span>⚡ Super Nhạy</span>
-
-            <label class="switch">
-
-                <input type="checkbox"
-                id="super"
-                ${superEnabled ? "checked" : ""}>
-
-                <span class="slider"></span>
-
-            </label>
-
-        </div>
-
-        <div class="toggle">
-
-            <span>🎯 AIM LOCK</span>
-
-            <label class="switch">
-
-                <input type="checkbox"
-                id="aimlock"
-                ${aimlockEnabled ? "checked" : ""}>
-
-                <span class="slider"></span>
-
-            </label>
-
-        </div>
-
-        <div class="toggle">
-
-            <span>🔥 Fix Lố</span>
-
-            <label class="switch">
-
-                <input type="checkbox"
-                id="fixlo"
-                ${fixloEnabled ? "checked" : ""}>
-
-                <span class="slider"></span>
-
-            </label>
-
-        </div>
-
+        <div class="toggle"><span>🔥 Fix Lố</span>
+        <label class="switch"><input type="checkbox" id="fixlo" ${fixloEnabled?"checked":""}><span class="slider"></span></label></div>
         `;
 
-        document.getElementById("super")
-        .addEventListener("change",function(){
-            superEnabled = this.checked;
-        });
-
-        document.getElementById("aimlock")
-        .addEventListener("change",function(){
-            aimlockEnabled = this.checked;
-        });
-
-        document.getElementById("fixlo")
-        .addEventListener("change",function(){
-            fixloEnabled = this.checked;
-        });
-
+        document.getElementById("super").onchange=e=>superEnabled=e.target.checked;
+        document.getElementById("aimlock").onchange=e=>aimlockEnabled=e.target.checked;
+        document.getElementById("fixlo").onchange=e=>fixloEnabled=e.target.checked;
     }
 
-    /* FILE */
-
-    else if(tab === "file"){
-
-        content.innerHTML = `
-
-        <input type="file"
-        id="fileInput">
-
+    else if(tab==="file"){
+        content.innerHTML=`
+        <input type="file" id="fileInput">
         <div id="fileResult"></div>
-
         `;
-
-        document.getElementById("fileInput")
-        .addEventListener("change",function(e){
-
-            let file =
-            e.target.files[0];
-
-            if(file){
-
-                if(file.name === "Cv.lock"){
-
-                    document.getElementById("fileResult")
-                    .innerHTML =
-
-                    "<div class='success'>✔ Nhập file thành công</div>";
-
-                }else{
-
-                    document.getElementById("fileResult")
-                    .innerHTML =
-
-                    "<div class='error'>✖ Chỉ chấp nhận file Cv.lock</div>";
-
-                }
-            }
-
-        });
-
     }
 
-    /* CREATOR */
-
-    else if(tab === "creator"){
-
-        content.innerHTML = `
-
+    else{
+        content.innerHTML=`
         <div class="creator-box">
-
             <h2>👑 Creator</h2>
-
-            <p style="margin-bottom:15px">
-            TikTok: @userndd2012
-            </p>
-
+            <p>TikTok: @userndd2012</p>
             <button class="creator-btn"
             onclick="window.open('https://www.tiktok.com/@userndd2012?_r=1&_t=ZS-96U78JQNOEx')">
-
             🔑 Lấy Key Free
-
             </button>
-
-        </div>
-
-        `;
+        </div>`;
     }
 }
 
