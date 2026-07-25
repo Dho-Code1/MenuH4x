@@ -2,69 +2,81 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>DNS Config Maker</title>
 
 <style>
-body{
-    margin:0;
-    font-family:Arial;
-    background:#0f172a;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
 }
 
-.box{
-    width:360px;
-    background:#1e293b;
-    border-radius:18px;
-    padding:20px;
-    color:white;
-    box-shadow:0 0 20px #0006;
+body{
+background:#111827;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
+}
+
+.card{
+width:100%;
+max-width:420px;
+background:#1f2937;
+padding:20px;
+border-radius:18px;
+box-shadow:0 0 25px rgba(0,0,0,.4);
+color:white;
 }
 
 h2{
-    text-align:center;
-    margin-bottom:20px;
+text-align:center;
+margin-bottom:20px;
 }
 
 input{
-    width:100%;
-    padding:12px;
-    margin:8px 0;
-    border:none;
-    border-radius:10px;
-    background:#334155;
-    color:white;
-    font-size:15px;
-    box-sizing:border-box;
+width:100%;
+padding:12px;
+margin:8px 0;
+border:none;
+border-radius:10px;
+background:#374151;
+color:white;
+font-size:15px;
 }
 
 button{
-    width:100%;
-    padding:13px;
-    border:none;
-    border-radius:12px;
-    background:#3b82f6;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
+width:100%;
+padding:13px;
+margin-top:10px;
+border:none;
+border-radius:12px;
+font-size:16px;
+cursor:pointer;
 }
 
-button:hover{
-    background:#2563eb;
+#create{
+background:#2563eb;
+color:white;
+}
+
+#download{
+background:#16a34a;
+color:white;
 }
 
 pre{
-    margin-top:15px;
-    background:#111827;
-    padding:12px;
-    border-radius:10px;
-    white-space:pre-wrap;
-    word-break:break-word;
-    color:#22c55e;
+margin-top:15px;
+background:#111;
+padding:10px;
+border-radius:10px;
+white-space:pre-wrap;
+word-break:break-word;
+color:#22c55e;
+font-size:13px;
 }
 </style>
 
@@ -72,44 +84,74 @@ pre{
 
 <body>
 
-<div class="box">
+<div class="card">
 
 <h2>DNS Config Maker</h2>
 
 <input id="name" placeholder="Tên cấu hình">
 
-<input id="dns1" placeholder="DNS Chính (VD: 1.1.1.1)">
+<input id="dns1" placeholder="DNS Chính">
 
-<input id="dns2" placeholder="DNS Phụ (VD: 8.8.8.8)">
+<input id="dns2" placeholder="DNS Phụ">
 
-<input id="doh" placeholder="DNS-over-HTTPS URL (tuỳ chọn)">
+<input id="doh" placeholder="DNS over HTTPS (không bắt buộc)">
 
-<button onclick="createConfig()">TẠO CẤU HÌNH</button>
+<button id="create" onclick="createConfig()">Tạo cấu hình</button>
 
-<pre id="result"></pre>
+<button id="download" onclick="downloadConfig()">Tải file JSON</button>
+
+<pre id="result">Chưa tạo cấu hình.</pre>
 
 </div>
 
 <script>
 
+let currentConfig=null;
+
 function createConfig(){
 
-const config={
+currentConfig={
 
-Name:document.getElementById("name").value,
+name:document.getElementById("name").value,
 
-PrimaryDNS:document.getElementById("dns1").value,
+primaryDNS:document.getElementById("dns1").value,
 
-SecondaryDNS:document.getElementById("dns2").value,
+secondaryDNS:document.getElementById("dns2").value,
 
-DoH:document.getElementById("doh").value,
+doh:document.getElementById("doh").value,
 
-Created:new Date().toLocaleString()
+created:new Date().toLocaleString()
 
 };
 
 document.getElementById("result").textContent=
-JSON.stringify(config,null,4);
+JSON.stringify(currentConfig,null,4);
+
+}
+
+function downloadConfig(){
+
+if(currentConfig==null){
+alert("Hãy tạo cấu hình trước.");
+return;
+}
+
+const blob=new Blob(
+[JSON.stringify(currentConfig,null,4)],
+{type:"application/json"}
+);
+
+const url=URL.createObjectURL(blob);
+
+const a=document.createElement("a");
+
+a.href=url;
+
+a.download=(currentConfig.name||"DNS_Config")+".json";
+
+a.click();
+
+URL.revokeObjectURL(url);
 
 }
 
